@@ -997,3 +997,20 @@ function cptui_register_my_taxes() {
 	register_taxonomy( "ck_bikeride_year", array( "ck_bikerides" ), $args );
 }
 add_action( 'init', 'cptui_register_my_taxes' );
+
+//establish path to plugins
+
+$ck_bikerides_plugins = array(
+   '/acf.php',
+   //including acf and its data
+   '/acf_cycle_data.php',
+   
+);
+
+foreach ( $ck_bikerides_plugins as $file ) {
+	$filepath = locate_template( 'inc' . $file );
+	if ( ! $filepath ) {
+		trigger_error( sprintf( 'Error locating /inc%s for inclusion', $file ), E_USER_ERROR );
+	}
+	require_once $filepath;
+};
